@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'submit_facial_data_screen.dart'; // Import SubmitFacialDataScreen
+import 'EnrolledCoursesScreen.dart'; // Import EnrolledCoursesScreen
+import 'AttendanceStatusScreen.dart'; // Import AttendanceStatusScreen
+import 'NotificationsScreen.dart'; // Import NotificationsScreen
+import 'SettingsScreen.dart'; // Import SettingsScreen
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -39,7 +43,7 @@ class DashboardScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SubmitFacialDataScreen(),
+                        builder: (context) => const SubmitFacialDataScreen(),
                       ),
                     );
                   },
@@ -50,6 +54,12 @@ class DashboardScreen extends StatelessWidget {
                   color: Colors.teal,
                   onTap: () {
                     // Navigate to Enrolled Courses Screen
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const EnrolledCoursesScreen(),
+                      ),
+                    );
                   },
                 ),
                 _buildDashboardCard(
@@ -58,6 +68,12 @@ class DashboardScreen extends StatelessWidget {
                   color: Colors.blueAccent,
                   onTap: () {
                     // Navigate to Attendance Status Screen
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AttendanceStatusScreen(),
+                      ),
+                    );
                   },
                 ),
                 _buildDashboardCard(
@@ -66,6 +82,12 @@ class DashboardScreen extends StatelessWidget {
                   color: Colors.purple,
                   onTap: () {
                     // Navigate to Notifications Screen
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const NotificationsScreen(),
+                      ),
+                    );
                   },
                 ),
                 _buildDashboardCard(
@@ -74,6 +96,12 @@ class DashboardScreen extends StatelessWidget {
                   color: Colors.green,
                   onTap: () {
                     // Navigate to Settings/Profile Management Screen
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SettingsScreen(),
+                      ),
+                    );
                   },
                 ),
               ],

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'dashboard_screen.dart';
-import 'registration_screen.dart';
-import 'package:lusmart/extra/ForgotPasswordScreen.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class ForgotPasswordScreen extends StatelessWidget {
+  const ForgotPasswordScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +23,9 @@ class LoginScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
 
-                // Welcome Text
+                // Title Text
                 const Text(
-                  "Welcome Back!",
+                  "Forgot Password",
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
@@ -37,7 +34,7 @@ class LoginScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  "Log in to your LU Smart account to continue",
+                  "Enter your email address to reset your password.",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 16, color: Colors.black54),
                 ),
@@ -57,53 +54,17 @@ class LoginScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
 
-                // Password Input
-                TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.lock_outline),
-                    labelText: "Password",
-                    hintText: "Enter your password",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-
-                // Forgot Password
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ForgotPasswordScreen(),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      "Forgot Password?",
-                      style: TextStyle(color: Colors.blueAccent),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-
-                // Login Button
+                // Send Reset Link Button
                 ElevatedButton(
-                  // onPressed: () {
-                  //   // Add Login Logic
-                  // },
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const DashboardScreen()),
+                    // Add logic for sending reset link
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content:
+                            Text("Password reset link sent! Check your email."),
+                      ),
                     );
                   },
-
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepPurple,
                     padding: const EdgeInsets.symmetric(vertical: 15),
@@ -113,7 +74,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   child: const Center(
                     child: Text(
-                      "Log In",
+                      "Send Reset Link",
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.white,
@@ -124,37 +85,18 @@ class LoginScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
 
-                // Divider with "or"
-                Row(
-                  children: const [
-                    Expanded(child: Divider(thickness: 1)),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: Text("or"),
-                    ),
-                    Expanded(child: Divider(thickness: 1)),
-                  ],
-                ),
-                const SizedBox(height: 20),
-
-                // Register Option
+                // Back to Login Button
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                        "Are you a new user? Or, Don't have an account? "),
+                    const Text("Remember your password? "),
                     TextButton(
                       onPressed: () {
-                        // Navigate to Registration Screen
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const RegistrationScreen(),
-                          ),
-                        );
+                        // Navigate back to the Login Screen
+                        Navigator.pop(context);
                       },
                       child: const Text(
-                        "Register",
+                        "Login",
                         style: TextStyle(color: Colors.blueAccent),
                       ),
                     ),
