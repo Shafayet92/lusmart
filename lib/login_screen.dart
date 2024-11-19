@@ -134,7 +134,8 @@ class LoginScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Don't have an account? "),
+                    const Text(
+                        "Are you a new user? Or, Don't have an account? "),
                     TextButton(
                       onPressed: () {
                         // Add Register Navigation

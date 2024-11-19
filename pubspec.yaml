@@ -29,6 +29,7 @@ flutter:
   assets:
     - assets/images/app_logo.png # Ensure your app logo is placed here
     - assets/images/ # Add more asset directories if needed
+    - assets/user/user_profile.png
 
   # Custom fonts (optional, if needed)
   fonts:
