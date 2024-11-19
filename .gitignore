@@ -29,7 +29,7 @@ migrate_working_dir/
 .flutter-plugins-dependencies
 .pub-cache/
 .pub/
-/build/
+build/
 
 # Symbolication related
 app.*.symbols
@@ -41,3 +41,14 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Assets
+# Ensure assets like fonts, images, and other required files are included in the repository.
+# Example:
+# assets/fonts/
+# assets/images/
+
+# Generated files
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
