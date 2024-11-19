@@ -55,10 +55,10 @@ class _SubmitFacialDataScreenState extends State<SubmitFacialDataScreen> {
         ),
       ),
       body: Container(
-        // Using a linear gradient as the background
+        // Using a light orange gradient as the background
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.deepPurple, Colors.purpleAccent],
+            colors: [Colors.orange.shade100, Colors.orange.shade300],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),

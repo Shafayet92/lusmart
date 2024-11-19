@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dashboard_screen.dart';
-import 'registration_screen.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class RegistrationScreen extends StatelessWidget {
+  const RegistrationScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,7 @@ class LoginScreen extends StatelessWidget {
 
                 // Welcome Text
                 const Text(
-                  "Welcome Back!",
+                  "Create a New Account",
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
@@ -36,11 +35,24 @@ class LoginScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  "Log in to your LU Smart account to continue",
+                  "Sign up to create your LU Smart account",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 16, color: Colors.black54),
                 ),
                 const SizedBox(height: 40),
+
+                // Full Name Input
+                TextField(
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.person_outline),
+                    labelText: "Full Name",
+                    hintText: "Enter your full name",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
 
                 // Email Input
                 TextField(
@@ -68,36 +80,32 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
 
-                // Forgot Password
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () {
-                      // Add Forgot Password Navigation
-                    },
-                    child: const Text(
-                      "Forgot Password?",
-                      style: TextStyle(color: Colors.blueAccent),
+                // Confirm Password Input
+                TextField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.lock_outline),
+                    labelText: "Confirm Password",
+                    hintText: "Confirm your password",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                 ),
                 const SizedBox(height: 20),
 
-                // Login Button
+                // Register Button
                 ElevatedButton(
-                  // onPressed: () {
-                  //   // Add Login Logic
-                  // },
                   onPressed: () {
+                    // Add registration logic here, e.g., call an API to register the user
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const DashboardScreen()),
                     );
                   },
-
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepPurple,
                     padding: const EdgeInsets.symmetric(vertical: 15),
@@ -107,7 +115,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   child: const Center(
                     child: Text(
-                      "Log In",
+                      "Register",
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.white,
@@ -131,24 +139,18 @@ class LoginScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
 
-                // Register Option
+                // Login Option
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                        "Are you a new user? Or, Don't have an account? "),
+                    const Text("Already have an account? "),
                     TextButton(
                       onPressed: () {
-                        // Navigate to Registration Screen
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const RegistrationScreen(),
-                          ),
-                        );
+                        // Navigate to Login Screen
+                        Navigator.pop(context); // Go back to the login screen
                       },
                       child: const Text(
-                        "Register",
+                        "Log In",
                         style: TextStyle(color: Colors.blueAccent),
                       ),
                     ),
