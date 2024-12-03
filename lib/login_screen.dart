@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dashboard_screen.dart';
 import 'registration_screen.dart';
-import 'package:lusmart/extra/ForgotPasswordScreen.dart';
+import 'ForgotPasswordScreen.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -141,8 +141,7 @@ class LoginScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                        "Are you a new user? Or, Don't have an account? "),
+                    const Text("Don't have an account?"),
                     TextButton(
                       onPressed: () {
                         // Navigate to Registration Screen

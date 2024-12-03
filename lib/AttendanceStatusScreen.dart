@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 class AttendanceStatusScreen extends StatelessWidget {
-  const AttendanceStatusScreen({Key? key}) : super(key: key);
+  const AttendanceStatusScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +25,16 @@ class AttendanceStatusScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Attendance Status"),
-        backgroundColor: Colors.deepPurple,
-        elevation: 8,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(30),
-            bottomRight: Radius.circular(30),
+        title: const Text(
+          'Attendance Status',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
         ),
+        backgroundColor: Colors.deepPurple,
+        centerTitle: true,
+        elevation: 4,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

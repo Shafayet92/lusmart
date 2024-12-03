@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
-import 'submit_facial_data_screen.dart'; // Import SubmitFacialDataScreen
+// import 'submit_facial_data_screen.dart'; // Import SubmitFacialDataScreen
 import 'EnrolledCoursesScreen.dart'; // Import EnrolledCoursesScreen
 import 'AttendanceStatusScreen.dart'; // Import AttendanceStatusScreen
 import 'NotificationsScreen.dart'; // Import NotificationsScreen
 import 'SettingsScreen.dart'; // Import SettingsScreen
 
-class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({Key? key}) : super(key: key);
+class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({super.key});
+
+  @override
+  _DashboardScreenState createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  int _selectedIndex = 0; // Variable to track the selected index
+
+  // List of screens for each navigation item
+  final List<Widget> _screens = [
+    const Center(
+        child: Text(
+            'Submit Facial Data')), // Placeholder screen for Submit Facial Data
+    const EnrolledCoursesScreen(),
+    const AttendanceStatusScreen(),
+    const NotificationsScreen(),
+    const SettingsScreen(),
+  ];
+
+  // Method to handle navigation item tap
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index; // Update selected index
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +64,12 @@ class DashboardScreen extends StatelessWidget {
                   title: "Submit Facial Data",
                   color: Colors.deepOrange,
                   onTap: () {
-                    // Navigate to Submit Facial Data Screen
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SubmitFacialDataScreen(),
-                      ),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => const SubmitFacialDataScreen(),
+                    //   ),
+                    // );
                   },
                 ),
                 _buildDashboardCard(
@@ -53,7 +77,6 @@ class DashboardScreen extends StatelessWidget {
                   title: "Enrolled Courses",
                   color: Colors.teal,
                   onTap: () {
-                    // Navigate to Enrolled Courses Screen
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -67,7 +90,6 @@ class DashboardScreen extends StatelessWidget {
                   title: "Attendance Status",
                   color: Colors.blueAccent,
                   onTap: () {
-                    // Navigate to Attendance Status Screen
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -81,7 +103,6 @@ class DashboardScreen extends StatelessWidget {
                   title: "Notifications",
                   color: Colors.purple,
                   onTap: () {
-                    // Navigate to Notifications Screen
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -95,7 +116,6 @@ class DashboardScreen extends StatelessWidget {
                   title: "Settings",
                   color: Colors.green,
                   onTap: () {
-                    // Navigate to Settings/Profile Management Screen
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -118,6 +138,38 @@ class DashboardScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      // Bottom Navigation Bar added
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex, // Track the selected tab
+        onTap: _onItemTapped, // Handle tab selection
+        backgroundColor:
+            Colors.deepPurple, // Custom background color for bottom bar
+        selectedItemColor:
+            const Color.fromARGB(255, 68, 54, 54), // Selected icon color
+        unselectedItemColor: Colors.grey, // Unselected icon color
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.face),
+            label: 'Facial Data',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.book),
+            label: 'Courses',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.check_circle),
+            label: 'Attendance',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications),
+            label: 'Notifications',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+          ),
+        ],
       ),
     );
   }

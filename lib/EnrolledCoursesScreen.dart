@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 class EnrolledCoursesScreen extends StatelessWidget {
-  const EnrolledCoursesScreen({Key? key}) : super(key: key);
+  const EnrolledCoursesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +25,16 @@ class EnrolledCoursesScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Enrolled Courses"),
-        backgroundColor: Colors.deepPurple,
-        elevation: 8,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(30),
-            bottomRight: Radius.circular(30),
+        title: const Text(
+          'Enrolled Courses',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
         ),
+        backgroundColor: Colors.deepPurple,
+        centerTitle: true,
+        elevation: 4,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

@@ -4,8 +4,7 @@ import 'dart:io';
 class SubmissionResultScreen extends StatelessWidget {
   final File? image;
 
-  const SubmissionResultScreen({Key? key, required this.image})
-      : super(key: key);
+  const SubmissionResultScreen({super.key, required this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +57,6 @@ class SubmissionResultScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.pushReplacementNamed(context, '/dashboard');
               },
-              child: const Text('Go to Dashboard'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.deepPurple,
                 foregroundColor: Colors.white,
@@ -69,6 +67,7 @@ class SubmissionResultScreen extends StatelessWidget {
                 ),
                 elevation: 6,
               ),
+              child: const Text('Go to Dashboard'),
             ),
           ],
         ),
