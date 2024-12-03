@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "783021291028",
+    "project_id": "lu-smart-cf7e5",
+    "storage_bucket": "lu-smart-cf7e5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:783021291028:android:7ee4b6af020b9e75299901",
+        "android_client_info": {
+          "package_name": "com.example.lusmart"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDad854FSmRMu5JQ30Bbv_WSTrbFM5OOMk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

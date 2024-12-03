@@ -1,6 +1,7 @@
-// SettingsScreen.dart
-
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // FirebaseAuth package
+import 'package:cloud_firestore/cloud_firestore.dart'; // Firestore package
+import 'login_screen.dart'; // Import login screen for redirection
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -10,21 +11,84 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  // Dummy data for profile details
-  String _userName = "John Doe";
-  String _email = "john.doe@example.com";
-  String _password = "******";
+  String _userName = "";
+  String _email = "";
+  String _luId = ""; // Assuming LU ID is stored in Firestore
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _luIdController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _nameController.text = _userName;
-    _emailController.text = _email;
-    _passwordController.text = _password;
+    _loadUserData();
+  }
+
+  // Load user data from Firebase Firestore
+  Future<void> _loadUserData() async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .get();
+
+        if (userDoc.exists) {
+          setState(() {
+            _userName = userDoc['name'] ?? 'No name';
+            _email = userDoc['email'] ?? 'No email';
+            _luId = userDoc['luId'] ?? 'No LU ID';
+          });
+
+          // Populate the text controllers for editing
+          _nameController.text = _userName;
+          _emailController.text = _email;
+          _luIdController.text = _luId;
+        }
+      }
+    } catch (e) {
+      print("Error loading user data: $e");
+    }
+  }
+
+  // Function to delete the user's account
+  Future<void> _deleteAccount() async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        // Step 1: Delete the user document from Firestore
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .delete();
+
+        // Step 2: Delete the user from Firebase Authentication
+        await user.delete();
+
+        // Step 3: Log the user out and navigate to the login screen
+        await FirebaseAuth.instance.signOut();
+
+        // Navigate to the Login screen
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
+        );
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Account deleted successfully!')),
+        );
+      }
+    } catch (e) {
+      // Handle potential errors (like re-authentication if necessary)
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error deleting account: $e')),
+      );
+    }
   }
 
   @override
@@ -90,7 +154,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             const SizedBox(height: 20),
 
-            // Password Field
+            // LU ID Field
+            TextField(
+              controller: _luIdController,
+              decoration: InputDecoration(
+                labelText: "LU ID",
+                hintText: "Enter your LU ID",
+                prefixIcon: const Icon(Icons.school),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // Password Field (you cannot retrieve the password)
             TextField(
               controller: _passwordController,
               obscureText: true,
@@ -108,19 +186,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
             // Save Changes Button
             ElevatedButton(
               onPressed: () {
-                setState(() {
-                  _userName = _nameController.text;
-                  _email = _emailController.text;
-                  _password = _passwordController.text;
-                });
+                // Update user data in Firestore if needed
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                      content: Text('Profile updated successfully!')),
+                  const SnackBar(content: Text('Profile updated!')),
                 );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor:
-                    Colors.deepPurple, // No `primary`, using `backgroundColor`
+                backgroundColor: Colors.deepPurple,
                 padding: const EdgeInsets.symmetric(vertical: 15),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -140,7 +212,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             // Delete Account Button
             TextButton(
               onPressed: () {
-                // Logic for account deletion can go here
+                // Show confirmation dialog before deleting the account
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
@@ -157,11 +229,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ),
                         TextButton(
                           onPressed: () {
-                            // Proceed with account deletion
                             Navigator.of(context).pop();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Account deleted')),
-                            );
+                            _deleteAccount(); // Proceed with account deletion
                           },
                           child: const Text("Delete"),
                         ),

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'login_screen.dart'; // Import the login screen
+
 // import 'submit_facial_data_screen.dart'; // Import SubmitFacialDataScreen
 import 'EnrolledCoursesScreen.dart'; // Import EnrolledCoursesScreen
 import 'AttendanceStatusScreen.dart'; // Import AttendanceStatusScreen
@@ -33,6 +36,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
     });
   }
 
+  Future<void> _logout() async {
+    try {
+      await FirebaseAuth.instance.signOut(); // Sign the user out
+      if (!mounted) return;
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                const LoginScreen()), // Redirect to LoginScreen
+      );
+    } catch (e) {
+      // Handle errors if necessary (e.g., show a snackbar or dialog)
+      print('Error logging out: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +67,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
         backgroundColor: Colors.deepPurple,
         centerTitle: true,
         elevation: 4,
+        actions: [
+          // Logout button in the app bar
+          IconButton(
+            icon: const Icon(Icons.exit_to_app, color: Colors.white),
+            onPressed: _logout,
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

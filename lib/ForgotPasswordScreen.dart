@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // Import FirebaseAuth package
 
 class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Create a TextEditingController to handle the email input
+    final TextEditingController _emailController = TextEditingController();
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -19,7 +23,8 @@ class ForgotPasswordScreen extends StatelessWidget {
                 SizedBox(
                   height: 200,
                   child: Image.asset(
-                      'assets/images/app_logo.png'), // Add your app logo here
+                    'assets/images/app_logo.png', // Add your app logo here
+                  ),
                 ),
                 const SizedBox(height: 20),
 
@@ -42,6 +47,8 @@ class ForgotPasswordScreen extends StatelessWidget {
 
                 // Email Input
                 TextField(
+                  controller:
+                      _emailController, // Assign the controller to the TextField
                   decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.email_outlined),
                     labelText: "Email",
@@ -56,14 +63,39 @@ class ForgotPasswordScreen extends StatelessWidget {
 
                 // Send Reset Link Button
                 ElevatedButton(
-                  onPressed: () {
-                    // Add logic for sending reset link
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content:
-                            Text("Password reset link sent! Check your email."),
-                      ),
-                    );
+                  onPressed: () async {
+                    String email = _emailController.text.trim();
+
+                    if (email.isEmpty) {
+                      // Show error message if the email field is empty
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Please enter a valid email address."),
+                        ),
+                      );
+                      return;
+                    }
+
+                    try {
+                      // Send the password reset email
+                      await FirebaseAuth.instance
+                          .sendPasswordResetEmail(email: email);
+
+                      // Show a success message
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                              "Password reset link sent! Check your email."),
+                        ),
+                      );
+                    } catch (e) {
+                      // Show an error message if sending the reset email fails
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Error: ${e.toString()}"),
+                        ),
+                      );
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepPurple,
